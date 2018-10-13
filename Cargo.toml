@@ -1,0 +1,6 @@
+[package]
+name = "idata"
+version = "0.1.0"
+authors = ["jlehahred <jleahred@gmail.com>"]
+
+[dependencies]
