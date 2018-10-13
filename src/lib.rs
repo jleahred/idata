@@ -22,7 +22,7 @@
 //!
 //! ```rust
 //!    extern crate idata;
-//!    use idata::IVec;
+//!    use idata::cont::IVec;
 //!
 //!    fn main() {
 //!         let v = vec![1, 2];
@@ -33,74 +33,6 @@
 //!    }
 //!```
 //!
-
-/// Some operations to work wit vectors
-///
-pub trait IVec<T> {
-    /// Push an element to a vector, and return the same vector
-    ///
-    ///  ```rust
-    ///    extern crate idata;
-    ///    use idata::IVec;
-    ///
-    ///    fn main() {
-    ///         let v = vec![1, 2];
-    ///         let v = v.ipush(3)
-    ///                  .ipush(4);
-    ///
-    ///        assert!(v == vec![1,2,3,4]);
-    ///    }
-    ///```
-    fn ipush(self, T) -> Self;
-
-    /// Append a vector to another
-    ///
-    ///  ```rust
-    ///    extern crate idata;
-    ///    use idata::IVec;
-    ///
-    ///    fn main() {
-    ///         let v1 = vec![1, 2];
-    ///         let v2 = vec![3, 4, 5];
-    ///         let v1 = v1.iappend(v2);
-    ///
-    ///         assert!(v1 == vec![1,2,3,4, 5]);
-    ///    }
-    ///```
-    fn iappend(self, Vec<T>) -> Self;
-
-    /// Remove an element from back of a vector
-    ///
-    ///  ```rust
-    ///    extern crate idata;
-    ///    use idata::IVec;
-    ///
-    ///    fn main() {
-    ///         let v1 = vec![1, 2, 3, 4, 5, 6];
-    ///         let (o, v1) = v1.ipop();
-    ///
-    ///         assert!(v1 == vec![1,2,3,4, 5]);
-    ///         assert!(o.unwrap() == 6);
-    ///    }
-    ///```
-    fn ipop(self) -> (Option<T>, Self);
-}
-
-impl<T> IVec<T> for Vec<T> {
-    fn ipush(mut self, v: T) -> Self {
-        self.push(v);
-        self
-    }
-
-    fn iappend(mut self, mut v: Vec<T>) -> Self {
-        self.append(&mut v);
-        self
-    }
-
-    fn ipop(mut self) -> (Option<T>, Self) {
-        (self.pop(), self)
-    }
-}
 
 /// Try getting a char from top of a Chars
 /// returning the (char, remaining_chars) if possible
@@ -120,6 +52,78 @@ pub fn consume_char(mut chars: std::str::Chars) -> Option<(char, std::str::Chars
     match chars.next() {
         Some(ch) => Some((ch, chars)),
         None => None,
+    }
+}
+
+pub mod cont {
+    //! Module to work with containers
+
+    /// Some operations to work with vectors
+    ///
+    pub trait IVec<T> {
+        /// Push an element to a vector, and return the same vector
+        ///
+        ///  ```rust
+        ///    extern crate idata;
+        ///    use idata::cont::IVec;
+        ///
+        ///    fn main() {
+        ///         let v = vec![1, 2];
+        ///         let v = v.ipush(3)
+        ///                  .ipush(4);
+        ///
+        ///        assert!(v == vec![1,2,3,4]);
+        ///    }
+        ///```
+        fn ipush(self, T) -> Self;
+
+        /// Append a vector to another
+        ///
+        ///  ```rust
+        ///    extern crate idata;
+        ///    use idata::cont::IVec;
+        ///
+        ///    fn main() {
+        ///         let v1 = vec![1, 2];
+        ///         let v2 = vec![3, 4, 5];
+        ///         let v1 = v1.iappend(v2);
+        ///
+        ///         assert!(v1 == vec![1,2,3,4, 5]);
+        ///    }
+        ///```
+        fn iappend(self, Vec<T>) -> Self;
+
+        /// Remove an element from back of a vector
+        ///
+        ///  ```rust
+        ///    extern crate idata;
+        ///    use idata::cont::IVec;
+        ///
+        ///    fn main() {
+        ///         let v1 = vec![1, 2, 3, 4, 5, 6];
+        ///         let (o, v1) = v1.ipop();
+        ///
+        ///         assert!(v1 == vec![1,2,3,4, 5]);
+        ///         assert!(o.unwrap() == 6);
+        ///    }
+        ///```
+        fn ipop(self) -> (Option<T>, Self);
+    }
+
+    impl<T> IVec<T> for Vec<T> {
+        fn ipush(mut self, v: T) -> Self {
+            self.push(v);
+            self
+        }
+
+        fn iappend(mut self, mut v: Vec<T>) -> Self {
+            self.append(&mut v);
+            self
+        }
+
+        fn ipop(mut self) -> (Option<T>, Self) {
+            (self.pop(), self)
+        }
     }
 }
 

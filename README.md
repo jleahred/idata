@@ -1,17 +1,40 @@
 # idata
 
+At the moment this `lib` is for my personal use. Therefore, I will be
+adding new features, as soon as I need them.
+
+- [repository](https://github.com/jleahred/idata)
+- [doc](https://docs.rs/idata/)
+- [rust-crate](https://crates.io/crates/idata)
+
 Small tools to work with rust reducing mutability and programming more functional way.
 
-* Mutability and sharing is bad.
-* Viric mutability is bad.
-* Mutability on large pieces of code is bad.
+- Mutability and sharing is bad.
+- Viric mutability is bad.
+- Mutability on large pieces of code is bad.
 
 In Rust, we can have no viric, not shared
 mutability. Lets use this feature.
 
 This small tools aims to help with this points
 
-[repository](https://github.com/jleahred/idata)
+## Usage
+
+Add to `cargo.toml`
+
+```toml
+[dependencies]
+idata = "0.1.0"
+```
+
+## Modifications
+
+    0.1.0   First version
+
+## TODO
+
+At the moment this `lib` is for my personal use. Therefore, I will be
+adding new features, as soon as I need them.
 
 ## Some examples
 
@@ -19,7 +42,7 @@ A very basic example...
 
 ```rust
    extern crate idata;
-   use idata::IVec;
+   use idata::cont::IVec;
    fn main() {
         let v = vec![1, 2];
         let v = v.ipush(3)
@@ -32,7 +55,7 @@ Push an element to a vector, and return the same vector
 
 ```rust
     extern crate idata;
-    use idata::IVec;
+    use idata::cont::IVec;
 
     fn main() {
          let v = vec![1, 2];
@@ -47,7 +70,7 @@ Append a vector to another
 
 ```rust
     extern crate idata;
-    use idata::IVec;
+    use idata::cont::IVec;
 
     fn main() {
          let v1 = vec![1, 2];
@@ -62,7 +85,7 @@ Remove an element from back of a vector
 
 ```rust
     extern crate idata;
-    use idata::IVec;
+    use idata::cont::IVec;
 
     fn main() {
          let v1 = vec![1, 2, 3, 4, 5, 6];
