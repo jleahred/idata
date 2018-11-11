@@ -55,6 +55,31 @@ pub fn consume_char(mut chars: std::str::Chars) -> Option<(char, std::str::Chars
     }
 }
 
+/// Operations on inmutable vars over an string
+pub trait IString {
+    /// Add a char to a String
+    ///
+    ///  ```rust
+    ///    extern crate idata;
+    ///    use idata::IString;
+    ///
+    ///    fn main() {
+    ///         let s = "Hello world".to_string();
+    ///         let s = s.ipush('!');
+    ///
+    ///         assert!(s == "Hello world!");
+    ///    }
+    ///```
+    fn ipush(self, ch: char) -> String;
+}
+
+impl IString for String {
+    fn ipush(mut self, ch: char) -> String {
+        self.push(ch);
+        self
+    }
+}
+
 pub mod cont {
     //! Module to work with containers
 
