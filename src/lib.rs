@@ -71,12 +71,31 @@ pub trait IString {
     ///    }
     ///```
     fn ipush(self, ch: char) -> String;
+
+    /// Remove a char from a String
+    ///
+    ///  ```rust
+    ///    extern crate idata;
+    ///    use idata::IString;
+    ///
+    ///    fn main() {
+    ///         let s = "Hello world!".to_string();
+    ///         let s = s.ipop().unwrap();
+    ///
+    ///         assert!(s == "Hello world");
+    ///    }
+    ///```
+    fn ipop(self) -> Option<String>;
 }
 
 impl IString for String {
     fn ipush(mut self, ch: char) -> String {
         self.push(ch);
         self
+    }
+    fn ipop(mut self) -> Option<String> {
+        self.pop()?;
+        Some(self)
     }
 }
 
