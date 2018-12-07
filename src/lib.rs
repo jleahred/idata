@@ -55,6 +55,53 @@ pub fn consume_char(mut chars: std::str::Chars) -> Option<(char, std::str::Chars
     }
 }
 
+/// &mut propagates mutability to top
+/// This is bad
+///
+/// You could have also a type working by owner shipt (to avoid
+/// mutability propagation)
+///
+/// In several cases you will have problems due to references
+///
+/// To avoid it, steal_borrow will let you execute as owner
+/// a function
+///
+///  ```rust
+///     extern crate idata;
+///
+///     struct Ex {
+///         val1: u16,
+///         val2: u32,
+///     }
+///
+///     impl Ex {
+///         fn inc(mut self) -> Self {
+///             self.val1 += 1;
+///             self.val2 += 2;
+///             self
+///         }
+///     }
+///
+///     fn test(rm_ex: &mut Ex) {
+///         idata::steal_borrow(rm_ex, &|o : Ex| o.inc() );
+///     }
+///
+///     fn main() {
+///         let mut ex = Ex{ val1: 0, val2: 0};
+///         test(&mut ex);
+///
+///         assert!(ex.val1 == 1);
+///         assert!(ex.val2 == 2);
+///     }
+///```
+pub fn steal_borrow<T>(target: &mut T, f: &Fn(T) -> T) {
+    let mut fake = unsafe { std::mem::zeroed() };
+    std::mem::swap(&mut fake, target);
+    let mut fake = f(fake);
+    std::mem::swap(&mut fake, target);
+    std::mem::forget(fake);
+}
+
 /// Operations on inmutable vars over an string
 pub trait IString {
     /// Add a char to a String
