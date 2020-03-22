@@ -111,6 +111,46 @@ returning the (char, remaining_chars) if possible
     }
 ```
 
+Adding char to an string
+```rust
+    extern crate idata;
+    use idata::IString;
+
+    fn main() {
+            let s = "Hello world".to_string();
+            let s = s.ipush('!');
+
+            assert!(s == "Hello world!");
+    }
+```
+
+Adding string to an string
+```rust
+    extern crate idata;
+    use idata::IString;
+
+    fn main() {
+            let s = "Hello world".to_string();
+            let s = s.iappend("!!!");
+
+            assert!(s == "Hello world!!!");
+    }
+```
+
+Removing last char to a String
+```rust
+    extern crate idata;
+    use idata::IString;
+        fn main() {
+        let s = "Hello world!".to_string();
+        let s = s.ipop().unwrap();
+            assert!(s == "Hello world");
+    }
+```
+
+
+
+
 Recursive simulation with TCO
 
 We cannot use `SSA` in `rust` combined with a for loop

@@ -119,6 +119,21 @@ pub trait IString {
     ///```
     fn ipush(self, ch: char) -> String;
 
+    /// Add a &str to a String
+    ///
+    ///  ```rust
+    ///    extern crate idata;
+    ///    use idata::IString;
+    ///
+    ///    fn main() {
+    ///         let s = "Hello world".to_string();
+    ///         let s = s.iappend("!!!");
+    ///
+    ///         assert!(s == "Hello world!!!");
+    ///    }
+    ///```
+    fn iappend(self, txt: &str) -> String;
+
     /// Remove a char from a String
     ///
     ///  ```rust
@@ -140,6 +155,14 @@ impl IString for String {
         self.push(ch);
         self
     }
+
+    fn iappend(mut self, txt: &str) -> String {
+        for ch in txt.chars() {
+            self.push(ch);
+        }
+        self
+    }
+
     fn ipop(mut self) -> Option<String> {
         self.pop()?;
         Some(self)
