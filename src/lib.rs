@@ -94,7 +94,7 @@ pub fn consume_char(mut chars: std::str::Chars) -> Option<(char, std::str::Chars
 ///         assert!(ex.val2 == 2);
 ///     }
 ///```
-pub fn steal_borrow<T>(target: &mut T, f: &Fn(T) -> T) {
+pub fn steal_borrow<T>(target: &mut T, f: &dyn Fn(T) -> T) {
     let mut fake = unsafe { std::mem::zeroed() };
     std::mem::swap(&mut fake, target);
     let mut fake = f(fake);

@@ -1,6 +1,6 @@
 [package]
 name = "idata"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["jlehahred <jleahred@gmail.com>"]
 license = "GPL-3.0"
 description = "Small tools to reduce mutability"
